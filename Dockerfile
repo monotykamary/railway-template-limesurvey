@@ -1,0 +1,2 @@
+FROM docker.io/martialblog/limesurvey:7.0.6-260722-apache@sha256:afe1aa6a2ddd80f63bd42d56275ad259e5ffcdb83fb1f381cfc1ddf74e8ebbe1
+EXPOSE 8080
