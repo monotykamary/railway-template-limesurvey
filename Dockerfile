@@ -1,4 +1,4 @@
-FROM docker.io/martialblog/limesurvey:7.0.9-260812-apache@sha256:c553bac7393547960bb31e308ea78c77e10562de5e9bc32fa3b88b2c8c1e72d3
+FROM docker.io/martialblog/limesurvey:7.0.10-260813-apache@sha256:69b2b828a2fe56728f5a1516eabaeebba38fdaaa10b78aab813a49c48d59ff2e
 USER root
 COPY railway-entrypoint.sh /usr/local/bin/limesurvey-railway-entrypoint
 RUN chmod +x /usr/local/bin/limesurvey-railway-entrypoint
