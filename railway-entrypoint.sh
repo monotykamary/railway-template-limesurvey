@@ -11,9 +11,10 @@ if [ ! -e /var/www/html/upload/themes/survey/vanilla ]; then
   cp -a /var/www/html/themes/survey /var/www/html/upload/themes/survey
   find /var/www/html/upload/themes -name "index.html" -exec touch {} +
 fi
-# The apache image runs Apache as UID 33; the log and runtime directories must be writable by it.
-mkdir -p /var/log/apache2 /var/run/apache2
-touch /var/log/apache2/access.log /var/log/apache2/error.log
-chown -R 33:33 /var/log/apache2 /var/run/apache2
+# The apache image runs Apache as UID 33. Use a private log directory the
+# unprivileged process owns; the image's /var/log/apache2 is not writable by it.
+mkdir -p /tmp/apache2 /var/run/apache2
+chown -R 33:33 /tmp/apache2 /var/run/apache2
+sed -i 's#^export APACHE_LOG_DIR=.*#export APACHE_LOG_DIR=/tmp/apache2#' /etc/apache2/envvars
 chown -R 33:33 /var/www/html/upload
 exec setpriv --reuid=33 --regid=33 --clear-groups /usr/local/bin/entrypoint.sh "$@"
